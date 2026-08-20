@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f0f13" />
+  <meta name="description" content="TikTok・Instagram・Xなど複数SNSを1画面で切り替える仮想環境ランチャー。カスタムブックマーク対応PWA。" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="SNS Launcher" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <title>SNS Virtual Launcher</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="logo">SNS<span>Launcher</span></h1>
+        <p class="subtitle">Virtual Multi-App Environment</p>
+      </div>
+      <div class="header-right">
+        <button id="theme-toggle" class="icon-btn" title="テーマ切替">🌓</button>
+        <button id="install-btn" class="install-btn hidden">インストール</button>
+      </div>
+    </header>
+
+    <!-- Search -->
+    <div class="search-bar">
+      <input type="search" id="search-input" placeholder="アプリやブックマークを検索..." autocomplete="off" />
+    </div>
+
+    <!-- Main Grid -->
+    <main class="main">
+      <section class="section">
+        <div class="section-header">
+          <h2>公式アプリ</h2>
+        </div>
+        <div id="apps-grid" class="grid"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>カスタムブックマーク</h2>
+          <button id="add-bookmark-btn" class="add-btn">＋ 追加</button>
+        </div>
+        <div id="bookmarks-grid" class="grid"></div>
+        <p id="empty-bookmarks" class="empty-msg hidden">まだブックマークがありません。＋追加から好きなURLを登録できます。</p>
+      </section>
+    </main>
+
+    <!-- Footer tips -->
+    <footer class="footer">
+      <p>💡 ホーム画面に追加するとアプリのように使えます</p>
+      <p class="small">TikTokは公式 or プライバシー重視のProxiTokを選択可能</p>
+    </footer>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="modal-title">ブックマークを追加</h3>
+      <form id="bookmark-form">
+        <label>
+          名前
+          <input type="text" id="bm-name" required placeholder="例: お気に入りブログ" maxlength="40" />
+        </label>
+        <label>
+          URL
+          <input type="url" id="bm-url" required placeholder="https://..." />
+        </label>
+        <label>
+          色 / アイコン
+          <div class="color-picker">
+            <input type="color" id="bm-color" value="#6366f1" />
+            <input type="text" id="bm-emoji" placeholder="絵文字（任意）" maxlength="2" />
+          </div>
+        </label>
+        <div class="modal-actions">
+          <button type="button" id="cancel-btn" class="btn secondary">キャンセル</button>
+          <button type="submit" class="btn primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Context menu for long-press / right-click -->
+  <div id="context-menu" class="context-menu hidden">
+    <button data-action="open">開く</button>
+    <button data-action="edit">編集</button>
+    <button data-action="delete">削除</button>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('SW registered', reg.scope))
+          .catch(err => console.log('SW failed', err));
+      });
+    }
+  </script>
+</body>
+</html>
