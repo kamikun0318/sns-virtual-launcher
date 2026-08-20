@@ -1,0 +1,26 @@
+{
+  "name": "SNS Virtual Launcher",
+  "short_name": "SNS Launcher",
+  "description": "TikTok・Instagramなど複数SNSを切り替える仮想環境ランチャー。カスタムブックマーク対応。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f13",
+  "theme_color": "#0f0f13",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["social", "utilities", "productivity"],
+  "lang": "ja"
+}
